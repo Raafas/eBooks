@@ -1,26 +1,30 @@
+using Gtk;
+
 namespace eBooks {
-	public class MainWindow : Gtk.Application {
-
-		public MainWindow () {
-		    Object (
-		        application_id: "com.github.rafaas.ebooks",
-		        flags: ApplicationFlags.FLAGS_NONE
-		    );
-		}
-
-		protected override void activate () {
-		    var main_window = new Gtk.ApplicationWindow (this);
-		    main_window.default_height = 300;
-		    main_window.default_width = 300;
-		    main_window.title = "eBooks";
-		    main_window.show_all ();
-		}
-
-		public static int main (string[] args) {
-			var app = new MainWindow ();
-
-		    return app.run (args);
-		}
-
-	}
+    public class BooksFileViewer : Window {
+        
+        public BooksFileViewer () {
+			var header = new HeaderBar();
+			header.title = "eBooks";
+			header.set_subtitle("eBook manager");
+			header.show_close_button = true;
+			header.spacing = 0;
+			
+			this.window_position = WindowPosition.CENTER;
+			set_titlebar(header);
+			set_default_size(500, 600);
+        }
+        
+        public static int main (string[] args) {
+			Gtk.init(ref args);
+			
+			var window = new BooksFileViewer();
+			window.destroy.connect(Gtk.main_quit);
+			window.show_all();
+			
+			Gtk.main();
+			
+			return 0;
+        }
+    }
 }
